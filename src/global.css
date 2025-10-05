@@ -1,0 +1,70 @@
+:root {
+    --color-primary: #f08c1f;
+    --color-secondary: #577083;
+    --color-accent: #e6504d;
+    --color-base-000: #fafafa;
+    --color-base-100: #f5f5f5;
+    --color-base-200: #e5e5e5;
+    --color-base-300: #d4d4d4;
+    --color-base-400: #a1a1a1;
+    --color-base-500: #737373;
+    --color-base-600: #525252;
+    --color-base-700: #404040;
+    --color-base-800: #262626;
+    --color-base-900: #171717;
+    --color-base-1000: #0a0a0a;
+    --page-padding: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-base-800);
+    background-color: var(--color-base-100);
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+.app-main {
+    padding-bottom: 80px;
+    min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --page-padding: 24px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+        padding: 0 24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+html {
+    overflow-y: scroll;
+}
