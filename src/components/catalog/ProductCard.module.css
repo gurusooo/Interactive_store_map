@@ -1,0 +1,163 @@
+.card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 2px solid transparent;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    border-color: var(--color-primary);
+}
+
+.card:hover .image {
+    transform: scale(1.08);
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background: white;
+}
+
+.imageSkeleton {
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeletonShimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            transparent 100%
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.imageHidden {
+    opacity: 0;
+    position: absolute;
+}
+
+.imageOverlay {
+    display: none;
+}
+
+.content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background: white;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-base-800);
+    margin-bottom: 8px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 36px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color-primary);
+}
+
+.weight {
+    font-size: 13px;
+    color: var(--color-base-500);
+    margin-bottom: 8px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.description {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .imageContainer {
+        height: 140px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 13px;
+        min-height: 34px;
+    }
+
+    .price {
+        font-size: 15px;
+    }
+
+    .details {
+        flex-direction: column;
+        align-items: start;
+        gap: 6px;
+    }
+
+    .weight {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .imageContainer {
+        height: 120px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+}

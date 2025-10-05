@@ -26,7 +26,6 @@
 }
 
 .card:hover {
-    /*background-color: var(--color-base-200);*/
     color: var(--color-primary);
 }
 
@@ -49,4 +48,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
+    padding: 0 var(--page-padding, 16px);
+    box-sizing: border-box;
 }
