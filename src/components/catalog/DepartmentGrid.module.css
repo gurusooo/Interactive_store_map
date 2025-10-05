@@ -1,0 +1,52 @@
+.wrapper {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 8px 0;
+    scrollbar-width: none;
+}
+
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.card {
+    min-width: 72px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: var(--color-base-200);
+    color: var(--color-base-700);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.card:hover {
+    /*background-color: var(--color-base-200);*/
+    color: var(--color-primary);
+}
+
+/*.active {
+    background-color: var(--color-primary);
+    color: white;
+}*/
+
+.icon {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
