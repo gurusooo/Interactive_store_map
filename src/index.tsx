@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ChakraProvider } from '@chakra-ui/react';
-import App from './App';
+import { App } from './App';
 import { defaultSystem } from "@chakra-ui/react";
 import './global.css';
 import { BrowserRouter } from "react-router-dom";
@@ -9,9 +9,8 @@ import { BrowserRouter } from "react-router-dom";
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <ChakraProvider value={defaultSystem}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
+                <BrowserRouter>
+                        <App />
+                </BrowserRouter>
         </ChakraProvider>
-        </React.StrictMode>,
-);
+    </React.StrictMode>, );

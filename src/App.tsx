@@ -1,14 +1,28 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
+import { HomePage } from "./pages/home/HomePage";
 import CatalogPage from "./pages/catalog/CatalogPage";
 import AccountPage from "./pages/account/AccountPage";
 import {DepartmentPage} from "./components/catalog/DepartmentPage";
-import { RoutePage } from './pages/route/RoutePage';
+import { RoutePage } from "./pages/route/RoutePage";
 import BottomNavigation from "./components/common/BottomNavigation";
 
 export const App: React.FC = () => {
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered successfully: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    }, []);
+
     return (
         <ChakraProvider value={defaultSystem}>
             <div className="app-container">
