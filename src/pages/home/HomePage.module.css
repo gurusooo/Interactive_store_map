@@ -1,0 +1,267 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-base-100);
+    color: var(--color-base-800);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem var(--page-padding);
+    background: var(--color-base-000);
+    border-bottom: 1px solid var(--color-base-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.mapButton {
+    background: var(--color-primary);
+    color: var(--color-base-000);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.mapButton:hover {
+    background: var(--color-base-800);
+    transform: translateY(-1px);
+}
+
+.mapButton:active {
+    transform: translateY(0);
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem var(--page-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    gap: 3rem;
+}
+
+.textBlock {
+    flex: 1;
+    max-width: 600px;
+}
+
+.greeting {
+    font-size: 2.25rem;
+    color: var(--color-base-900);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.subtext {
+    font-size: 1.25rem;
+    color: var(--color-base-600);
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.guideList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.guideList li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 1rem;
+    color: var(--color-base-700);
+    line-height: 1.6;
+}
+
+.guideList li::before {
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.imageBlock {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartImg {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+
+}
+
+.footer {
+    background: var(--color-base-600);
+    color: var(--color-base-000);
+    padding: 2rem var(--page-padding);
+    margin-top: auto;
+}
+
+.contacts {
+    margin-bottom: 1rem;
+}
+
+.contacts p {
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+}
+
+.contacts strong {
+    color: var(--color-primary);
+}
+
+.copy {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--color-base-200);
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: var(--page-padding);
+}
+
+.modalContent {
+    background: var(--color-base-000);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalAppear 0.3s ease-out;
+    border: 1px solid var(--color-base-200);
+}
+
+.closeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--color-base-600);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 1001;
+}
+
+.closeButton:hover {
+    color: var(--color-base-800);
+    transform: scale(1.2);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+        padding: 2rem var(--page-padding);
+        gap: 2rem;
+    }
+
+    .header {
+        padding: 1rem var(--page-padding);
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .greeting {
+        font-size: 1.75rem;
+        text-align: center;
+    }
+
+    .subtext {
+        font-size: 1.125rem;
+        text-align: center;
+    }
+
+    .textBlock,
+    .imageBlock {
+        max-width: 100%;
+    }
+
+    .modalContent {
+        padding: 1.5rem;
+    }
+
+    .footer {
+        padding: 1.5rem var(--page-padding);
+    }
+}
+
+@media (max-width: 480px) {
+    .greeting {
+        font-size: 1.5rem;
+    }
+
+    .subtext {
+        font-size: 1rem;
+    }
+
+    .guideList li {
+        font-size: 0.9rem;
+        padding-left: 1.5rem;
+    }
+
+    .mapButton {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+    }
+
+    .modalContent {
+        padding: 1rem;
+    }
+}
