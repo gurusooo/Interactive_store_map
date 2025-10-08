@@ -34,13 +34,13 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
     };
 
     const getImageUrl = (url: string) =>
-        imageError ? "https://via.placeholder.com/300x200/ffffff/cccccc?text=No+Image" : url;
+        imageError ? "/src/assets/placeholder.png" : url;
 
     const getShelfText = (shelf: number): string => {
         switch (shelf) {
             case 1: return 'верхней';
             case 2: return 'средней';
-            case 4: return 'нижней';
+            case 3: return 'нижней';
             default: return `${shelf}-й`;
         }
     };

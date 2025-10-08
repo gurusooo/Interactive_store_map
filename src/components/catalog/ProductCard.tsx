@@ -22,7 +22,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
     const getImageUrl = () => {
         if (imageError) {
-            return "https://via.placeholder.com/400x400/ffffff/cccccc?text=No+Image";
+            return "/src/assets/placeholder.png";
         }
         return product.image;
     };
