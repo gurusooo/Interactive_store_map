@@ -4,53 +4,95 @@
     align-items: center;
     padding: 16px;
     min-height: 100vh;
+    background: var(--color-base-100);
 }
 
 .mapContainer {
     position: relative;
     border: 2px solid var(--color-base-400);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background: white;
     padding: 8px;
     display: inline-block;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    overflow: hidden;
 }
 
 .map {
     display: block;
     width: 100%;
     height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.clickOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 572px;
+    height: 680px;
+    pointer-events: none;
 }
 
 .deptClickArea {
     position: absolute;
     cursor: pointer;
     background: rgba(255, 0, 0, 0);
+    transition: background-color 0.2s ease;
+    pointer-events: auto;
+    border-radius: 2px;
 }
 
-.deptClickArea:hover {
-    background: rgba(87, 112, 131, 0.1);
-}
+/*.deptClickArea:hover {*/
+/*    background: rgba(87, 112, 131, 0.15);*/
+/*    border: 1px solid rgba(87, 112, 131, 0.3);*/
+/*}*/
 
 .popup {
-    position: absolute;
+    position: fixed;
+    z-index: 9999;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    padding: 10px 12px;
-    z-index: 10;
-    min-width: 150px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--color-base-300);
+    padding: 12px 14px;
+    width: 180px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     animation: fadeIn 0.2s ease;
 }
 
+.popup::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #fff;
+}
+
+.popup.top::after {
+    bottom: auto;
+    top: -8px;
+    border-top: none;
+    border-bottom: 8px solid #fff;
+}
+
 .deptName {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     color: #333;
-    margin-bottom: 4px;
+    line-height: 1.3;
+    word-wrap: break-word;
+    text-align: center;
 }
 
 .goBtn {
@@ -58,32 +100,41 @@
     color: white;
     border: none;
     border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 14px;
+    padding: 8px 12px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
 }
 
 .goBtn:hover {
-    background: #e17115;
+    background: #c41a1f;
 }
 
 .close {
     position: absolute;
-    top: 2px;
-    right: 6px;
+    top: 4px;
+    right: 8px;
     border: none;
     background: none;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
-    color: var(--color-base-600);
+    color: var(--color-base-500);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
 }
 
 .close:hover {
     color: var(--color-base-800);
+    background: var(--color-base-200);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
+    from { opacity: 0; transform: translateY(-8px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -94,22 +145,75 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    z-index: 20;
+    z-index: 50;
 }
 
 .zoomControls button {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
     border: none;
     background: var(--color-accent);
     color: white;
     border-radius: 8px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
 }
 
 .zoomControls button:hover {
     background: #d3322f;
+    transform: scale(1.05);
 }
 
+@media (max-width: 768px) {
+    .page {
+        padding: 8px;
+        align-items: flex-start;
+    }
 
+    .mapContainer {
+        width: 100%;
+        padding: 4px;
+        max-width: calc(100vw - 16px);
+        max-height: calc(100vh - 16px);
+    }
+
+    .popup {
+        width: 160px;
+        padding: 10px 12px;
+    }
+
+    .deptName {
+        font-size: 13px;
+    }
+
+    .goBtn {
+        font-size: 13px;
+        padding: 7px 10px;
+    }
+
+    .zoomControls button {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup {
+        width: 150px;
+    }
+
+    .deptName {
+        font-size: 12px;
+    }
+
+    .zoomControls {
+        right: 8px;
+        top: 8px;
+    }
+}

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreMap } from "../../components/common/StoreMap";
 import styles from "./RoutePage.module.css";
+import { createPortal } from "react-dom";
 
 interface Department {
     id: string;
@@ -39,45 +40,63 @@ const departments: Department[] = [
     { id: "dept-toys", name: "Игрушки", x: 310, y: 379, width: 96, height: 40 },
     { id: "dept-school", name: "Товары для школы", x: 310, y: 422, width: 96, height: 40 },
     { id: "dept-ice-cream", name: "Мороженое", x: 422, y: 389, width: 80, height: 61 },
-    { id: "dept-el-cash", name: "Электронные кассы", x: 449, y: 480, width: 120, height: 30 },
-    { id: "dept-cash", name: "Кассы", x: 572, y: 480, width: 120, height: 30 }, //потеряла мясо, добавить
+    { id: "dept-beauty", name: "Красота", x: 310, y: 309, width: 192, height: 30, },
+    { id: "dept-meat", name: "Мясо, птица, рыба, колбасы",x: 0, y: 30, width: 30, height: 414 },
 ];
 
 export function RoutePage() {
     const navigate = useNavigate();
+    const mapContainerRef = useRef<HTMLDivElement>(null);
     const [selectedDept, setSelectedDept] = useState<Department | null>(null);
     const [scale, setScale] = useState(1);
-    const [transform, setTransform] = useState({ offsetX: 0, offsetY: 0, svgLeft: 0, svgTop: 0 });
+    const [transform, setTransform] = useState({ offsetX: 0, offsetY: 0 });
 
-    const handleDeptClick = (dept: Department) => setSelectedDept(dept);
+    const zoomIn = () => setScale((s) => Math.min(s + 0.2, 3));
+    const zoomOut = () => setScale((s) => Math.max(s - 0.2, 0.5));
     const handleNavigate = () => selectedDept && navigate(`/catalog/${selectedDept.id}`);
     const handleClose = () => setSelectedDept(null);
 
-    const zoomIn = () => setScale(prev => Math.min(prev + 0.2, 3));
-    const zoomOut = () => setScale(prev => Math.max(prev - 0.2, 0.5));
+    const getPopupPosition = () => {
+        if (!selectedDept || !mapContainerRef.current) return { left: 0, top: 0 };
+
+        const rect = mapContainerRef.current.getBoundingClientRect();
+        const deptCenterX = (selectedDept.x + selectedDept.width / 2) * scale + rect.left + transform.offsetX;
+        const deptCenterY = (selectedDept.y + selectedDept.height / 2) * scale + rect.top + transform.offsetY;
+
+        const popupWidth = 180;
+        const popupHeight = 100;
+        let left = deptCenterX - popupWidth / 2;
+        let top = deptCenterY - popupHeight - 16;
+
+        left = Math.max(12, Math.min(left, window.innerWidth - popupWidth - 12));
+        top = Math.max(12, Math.min(top, window.innerHeight - popupHeight - 12));
+
+        return { left, top };
+    };
+
+    const popupPosition = getPopupPosition();
 
     return (
         <div className={styles.page}>
-            <div className={styles.mapContainer}>
+            <div className={styles.mapContainer} ref={mapContainerRef}>
                 <div className={styles.zoomControls}>
                     <button onClick={zoomIn}>+</button>
                     <button onClick={zoomOut}>–</button>
                 </div>
 
                 <StoreMap
-                    location={{ x: 0, y: 0 }}
+                    location={{ x: 486, y: 644 }}
                     className={styles.map}
                     scale={scale}
-                    onTransformChange={setTransform}
+                    onTransformChange={({ offsetX, offsetY }) => setTransform({ offsetX, offsetY })}
                 />
 
                 <div
+                    className={styles.clickOverlay}
                     style={{
                         transform: `translate(${transform.offsetX}px, ${transform.offsetY}px) scale(${scale})`,
                         transformOrigin: "0 0",
-                        position: "absolute",
-                        top: transform.svgTop - transform.svgTop,
-                        left: transform.svgLeft - transform.svgLeft,
+                        zIndex: 20,
                     }}
                 >
                     {departments.map((dept) => (
@@ -89,27 +108,34 @@ export function RoutePage() {
                                 top: dept.y,
                                 width: dept.width,
                                 height: dept.height,
+                                pointerEvents: "auto",
+                                zIndex: 25,
                             }}
-                            onClick={() => handleDeptClick(dept)}
+                            onClick={() => setSelectedDept(dept)}
                         />
                     ))}
                 </div>
+            </div>
 
-                {selectedDept && (
+            {selectedDept &&
+                createPortal(
                     <div
                         className={styles.popup}
                         style={{
-                            left:
-                                (selectedDept.x + selectedDept.width + 8) * scale + transform.offsetX + transform.svgLeft,
-                            top: selectedDept.y * scale + transform.offsetY + transform.svgTop,
+                            left: popupPosition.left,
+                            top: popupPosition.top,
+                            position: "fixed",
+                            zIndex: 9999,
                         }}
                     >
                         <button className={styles.close} onClick={handleClose}>×</button>
                         <span className={styles.deptName}>{selectedDept.name}</span>
-                        <button className={styles.goBtn} onClick={handleNavigate}>Перейти</button>
-                    </div>
+                        <button className={styles.goBtn} onClick={handleNavigate}>
+                            Перейти
+                        </button>
+                    </div>,
+                    document.body
                 )}
-            </div>
         </div>
     );
 }
