@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { supabase } from "../../lib/supabase";
 import { Product } from "../../types/types";
 import { ProductCard } from "./ProductCard.tsx";
 import styles from "./DepartmentPage.module.css";
@@ -20,15 +19,17 @@ export function DepartmentPage() {
             setLoading(true);
 
             try {
-                const q = query(
-                    collection(db, "products"),
-                    where("category", "==", departmentId)
-                );
-                const snapshot = await getDocs(q);
-                const items: Product[] = snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...(doc.data() as Omit<Product, "id">),
-                }));
+                const { data, error } = await supabase
+                    .from("products")
+                    .select("*")
+                    .eq("category", departmentId);
+
+                if (error) {
+                    console.error("Ошибка загрузки товаров:", error);
+                    return;
+                }
+
+                const items: Product[] = data || [];
                 setProducts(items);
             } catch (err) {
                 console.error("Ошибка загрузки товаров:", err);
@@ -57,12 +58,11 @@ export function DepartmentPage() {
         );
     }
 
-
     return (
         <div className={styles.page}>
             {products.length === 0 ? (
                 <Box textAlign="center" py={8}>
-                    <Text color="var(--color-base-500)">
+                    <Text color="var(--color-base-500">
                         В этом отделе пока нет товаров
                     </Text>
                 </Box>

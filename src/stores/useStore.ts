@@ -1,45 +1,8 @@
 import { create } from "zustand";
 import { Product } from '../types/types';
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { supabase } from "../lib/supabase";
 
 type PageKey = 'home' | 'catalog' | 'route' | 'account';
-
-{/* const mockProducts: Product[] = [
-    {
-        id: "1",
-        name: "Молоко Простоквашино 2.5%",
-        price: 89,
-        image: "-",
-        category: "dept-milk",
-        description: "Свежее пастеризованное молоко",
-        weight: 1,
-        location: { x: 100, y: 200 },
-        shelf: 1
-    },
-    {
-        id: "2",
-        name: "Хлеб Бородинский",
-        price: 45,
-        image: "-",
-        category: "dept-bread",
-        description: "Ржаной хлеб с тмином",
-        weight: 0.5,
-        location: { x: 50, y: 100 },
-        shelf: 3
-    },
-    {
-        id: "3",
-        name: "Сыр Российский",
-        price: 420,
-        image: "-",
-        category: "dept-milk",
-        description: "Твердый сыр 45%",
-        weight: 0.5,
-        location: { x: 120, y: 220 },
-        shelf: 4
-    }
-]; */}
 
 interface StoreActions {
     setCurrentPage: (page: PageKey) => void;
@@ -81,25 +44,34 @@ export const useStore = create<StoreState & StoreActions>((set) => ({
     loadProducts: async () => {
         set({ loading: true, error: null });
         try {
-            console.log("Загрузка продуктов из Firebase..");
-            const querySnapshot = await getDocs(collection(db, "products"));
-            const products: Product[] = [];
+            console.log("Загрузка продуктов из Supabase...");
 
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                products.push({
-                    category: data.category,
-                    id: doc.id,
-                    name: data.name,
-                    price: data.price,
-                    image: data.image,
-                    description: data.description,
-                    weight: data.weight,
-                    shelf: data.volume,
-                    date: data.date,
-                    location: data.location || { x: 0, y: 0 }
-                });
-            });
+            const { data, error } = await supabase
+                .from("products")
+                .select("*");
+
+            if (error) {
+                throw new Error(error.message);
+            }
+
+            if (!data || data.length === 0) {
+                console.log("Нет продуктов в базе");
+                set({ products: [], loading: false });
+                return;
+            }
+
+            const products: Product[] = data.map((item) => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                category: item.category,
+                description: item.description,
+                image: item.image,
+                weight: item.weight,
+                date: item.date,
+                location: item.location || { x: 0, y: 0 },
+                shelf: item.shelf
+            }));
 
             console.log(`Загружено ${products.length} продуктов`);
             set({ products, loading: false });

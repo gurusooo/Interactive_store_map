@@ -39,8 +39,9 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
     const getShelfText = (shelf: number): string => {
         switch (shelf) {
             case 1: return 'верхней';
-            case 2: return 'средней';
-            case 3: return 'нижней';
+            case 2: return 'второй сверху';
+            case 3: return 'второй снизу';
+            case 4: return 'нижней';
             default: return `${shelf}-й`;
         }
     };
@@ -84,7 +85,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
                         {product.date && (
                             <Box className={styles.expirySection}>
-                                <Text>Срок хранения: {product.date} дней</Text>
+                                <Text>Срок хранения: {product.date}</Text>
                             </Box>
                         )}
 
