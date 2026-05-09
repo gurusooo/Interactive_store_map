@@ -36,9 +36,19 @@ const BottomNavigation: React.FC = () => {
 
     const currentPage = getCurrentPage();
 
-    const handleNavigation = (item: NavItem) => {
-        navigate(item.path);
+    const vibrate = (duration: number = 10) => {
+        if ('vibrate' in window.navigator) {
+            window.navigator.vibrate(duration);
+        }
     };
+
+    const handleNavigation = (item: NavItem) => {
+        if (location.pathname !== item.path) {
+            vibrate(10);  // Теперь vibrate определён
+            navigate(item.path);
+        }
+    };
+
 
     return (
         <nav className={styles.navigation}>
