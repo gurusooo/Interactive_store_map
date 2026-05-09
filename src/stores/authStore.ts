@@ -85,7 +85,7 @@ export const useAuthStore = create<AuthStore>()(
 
                 if (!email || !email.includes('@') || !email.includes('.')) {
                     set({ isLoading: false });
-                    throw new Error('Введите корректный email (например, name@mail.ru)');
+                    throw new Error('Введите корректный email');
                 }
 
                 if (!password || password.length < 6) {
