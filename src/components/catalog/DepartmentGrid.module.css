@@ -23,16 +23,17 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s;
+    padding: 0 4px;
 }
 
 .card:hover {
     color: var(--color-primary);
 }
 
-/*.active {
-    background-color: var(--color-primary);
-    color: white;
-}*/
+.card:active {
+    color: var(--color-primary);
+    transition: background-color 0.2s, color 0.2s;
+}
 
 .icon {
     font-size: 24px;

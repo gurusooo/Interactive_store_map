@@ -1,26 +1,62 @@
 .page {
-    padding: 16px;
+    padding: 0 16px 24px 16px;
     background-color: var(--color-base-100);
     min-height: 100vh;
+    margin: 0;
+}
+
+.departmentHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 16px 0;
+    background-color: var(--color-base-100);
+}
+
+.backButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    color: var(--color-base-700);
+}
+
+.backButton:hover {
+    background-color: var(--color-base-200);
+}
+
+.departmentTitle {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--color-base-700);
+    margin: 0;
+    font-family: 'Jost', sans-serif;
+    background-color: var(--color-base-100);
 }
 
 .productsGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 16px 0;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) {
     .productsGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
     }
 }
 
-@media (max-width: 640px) {
+@media (min-width: 1024px) {
     .productsGrid {
-        grid-template-columns: 1fr;
-        gap: 8px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
     }
 }
