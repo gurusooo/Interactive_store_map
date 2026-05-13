@@ -1,0 +1,134 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 67px;
+  z-index: 1000;
+  background: var(--color-base-100);
+  border-top: 1px solid var(--color-base-200);
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.left {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-base-700);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.addButton {
+  width: 72px;
+  height: 48px;
+  border: none;
+  border-radius: 24px;
+  background: var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  background-color: var(--color-base-300);
+  color: var(--color-base-000);
+}
+
+.quantityBox {
+  height: 48px;
+  background: var(--color-primary);
+  border-radius: 24px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: expand 0.2s ease;
+}
+
+.qtyButton {
+  width: 36px;
+  height: 36px;
+  border: none;
+  color: var(--color-base-000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    transform 0.15s ease,
+    background 0.2s ease;
+}
+
+.qtyButton:active {
+  transform: scale(0.9);
+}
+
+.qtyButton:disabled {
+  opacity: 0.5;
+}
+
+.quantity {
+  min-width: 58px;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+@keyframes expand {
+  from {
+    transform: scaleX(0.75);
+    opacity: 0.7;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 720px;
+    bottom: 78px;
+    border-radius: 18px;
+    border: 1px solid var(--color-base-200);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrapper {
+    left: auto;
+    right: 32px;
+    transform: none;
+    width: 420px;
+    bottom: 84px;
+  }
+}
