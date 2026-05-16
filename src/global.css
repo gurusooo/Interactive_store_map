@@ -23,7 +23,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Jost', sans-serif;
     color: var(--color-base-800);
     background-color: var(--color-base-100);
     line-height: 1.6;
@@ -36,7 +36,7 @@ body {
 }
 
 .app-main {
-    padding-bottom: 80px;
+    padding-bottom: 67px;
     min-height: 100vh;
 }
 
