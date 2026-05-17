@@ -1,6 +1,6 @@
-import { Product } from "../../types/types";
-import styles from "./ProductCard.module.css";
-import { useState } from "react";
+import { Product } from '../../types/types';
+import styles from './ProductCard.module.css';
+import { useState } from 'react';
 
 interface ProductCardProps {
     product: Product;
@@ -22,7 +22,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
 
     const getImageUrl = () => {
         if (imageError) {
-            return "/src/assets/placeholder.png";
+            return '/src/assets/placeholder.svg';
         }
         return product.image;
     };
@@ -48,9 +48,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
             <div className={styles.content}>
                 <h3 className={styles.title}>{product.name}</h3>
 
-                {product.weight && (
-                    <div className={styles.weight}>{product.weight} кг</div>
-                )}
+                {product.weight && <div className={styles.weight}>{product.weight} кг</div>}
 
                 <div className={styles.details}>
                     <div className={styles.price}>{product.price} ₽</div>

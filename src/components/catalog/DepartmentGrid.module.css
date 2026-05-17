@@ -22,7 +22,9 @@
     color: var(--color-base-700);
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
     padding: 0 4px;
 }
 
@@ -32,7 +34,9 @@
 
 .card:active {
     color: var(--color-primary);
-    transition: background-color 0.2s, color 0.2s;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
 }
 
 .icon {

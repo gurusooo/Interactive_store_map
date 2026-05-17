@@ -15,19 +15,22 @@
 }
 
 .backButton {
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
     color: var(--color-base-700);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
-.backButton:hover {
+.backButton:active {
     background-color: var(--color-base-200);
 }
 
