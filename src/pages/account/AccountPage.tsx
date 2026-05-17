@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from "react";
-import {
-    Box, Container, Button, Spinner, Heading
-} from "@chakra-ui/react";
-import { useToast } from "@chakra-ui/toast";
-import { FiLogOut, FiCheck } from "react-icons/fi";
-import { useAuthStore } from "../../stores/authStore";
-import { useProfileStore } from "../../stores/profileStore";
-import { ConfirmModal } from "../../components/account/ConfirmModal";
-import styles from "./AccountPage.module.css";
-import { FaPen } from "react-icons/fa6";
+import React, { useEffect, useState } from 'react';
+import { Box, Container, Button, Spinner, Heading } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/toast';
+import { FiLogOut, FiCheck } from 'react-icons/fi';
+import { useAuthStore } from '../../stores/authStore';
+import { useProfileStore } from '../../stores/profileStore';
+import { ConfirmModal } from '../../components/common/ConfirmModal.tsx';
+import styles from './AccountPage.module.css';
+import { FaPen } from 'react-icons/fa6';
 
 const AccountPage: React.FC = () => {
     const { user, signOut } = useAuthStore();
-    const { profile, loadProfile, updateDisplayName, isLoading: profileLoading } = useProfileStore();
+    const {
+        profile,
+        loadProfile,
+        updateDisplayName,
+        isLoading: profileLoading,
+    } = useProfileStore();
     const toast = useToast();
     const [isEditingName, setIsEditingName] = useState(false);
-    const [editNameValue, setEditNameValue] = useState("");
+    const [editNameValue, setEditNameValue] = useState('');
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-    const displayName = profile?.display_name || profile?.username || "Пользователь";
+    const displayName = profile?.display_name || profile?.username || 'Пользователь';
     const MAX_NAME_LENGTH = 16;
 
     useEffect(() => {
@@ -28,7 +31,7 @@ const AccountPage: React.FC = () => {
 
     const handleEditName = async () => {
         if (!editNameValue.trim()) {
-            toast({ title: "Имя не может быть пустым", status: "error", duration: 2000 });
+            toast({ title: 'Имя не может быть пустым', status: 'error', duration: 2000 });
             setIsEditingName(false);
             return;
         }
@@ -41,9 +44,9 @@ const AccountPage: React.FC = () => {
         try {
             await updateDisplayName(editNameValue);
             setIsEditingName(false);
-            toast({ title: "Имя обновлено!", status: "success", duration: 2000 });
+            toast({ title: 'Имя обновлено!', status: 'success', duration: 2000 });
         } catch (error) {
-            toast({ title: "Ошибка при обновлении имени", status: "error", duration: 2000 });
+            toast({ title: 'Ошибка при обновлении имени', status: 'error', duration: 2000 });
             setIsEditingName(false);
         }
     };
@@ -51,7 +54,7 @@ const AccountPage: React.FC = () => {
     const handleLogout = async () => {
         setIsLogoutModalOpen(false);
         await signOut();
-        toast({ title: "До свидания!", status: "info", duration: 2000 });
+        toast({ title: 'До свидания!', status: 'info', duration: 2000 });
     };
 
     if (profileLoading) {
@@ -77,7 +80,7 @@ const AccountPage: React.FC = () => {
                         variant="ghost"
                         size="sm"
                         className={styles.logoutButton}
-                        _hover={{ bg: "rgba(255, 255, 255, 0.15)" }}
+                        _hover={{ bg: 'rgba(255, 255, 255, 0.15)' }}
                     >
                         <FiLogOut size={24} />
                     </Button>
@@ -86,9 +89,7 @@ const AccountPage: React.FC = () => {
                 <Box className={styles.banner} />
 
                 <Box className={styles.profileSection}>
-                    <Box className={styles.avatar}>
-                        {displayName.charAt(0).toUpperCase()}
-                    </Box>
+                    <Box className={styles.avatar}>{displayName.charAt(0).toUpperCase()}</Box>
 
                     <Box className={styles.profileInfo}>
                         {isEditingName ? (
@@ -106,24 +107,19 @@ const AccountPage: React.FC = () => {
                                     className={styles.nameInput}
                                     autoFocus
                                     onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
+                                        if (e.key === 'Enter') {
                                             void handleEditName();
                                         }
                                     }}
                                 />
 
-                                <button
-                                    onClick={handleEditName}
-                                    className={styles.checkButton}
-                                >
+                                <button onClick={handleEditName} className={styles.checkButton}>
                                     <FiCheck size={20} />
                                 </button>
                             </div>
                         ) : (
                             <div className={styles.nameContainer}>
-                                <span className={styles.username}>
-                                    {displayName}
-                                </span>
+                                <span className={styles.username}>{displayName}</span>
 
                                 <FaPen
                                     size={16}
@@ -136,9 +132,7 @@ const AccountPage: React.FC = () => {
                             </div>
                         )}
 
-                        <div className={styles.email}>
-                            {user?.email}
-                        </div>
+                        <div className={styles.email}>{user?.email}</div>
                     </Box>
                 </Box>
 
@@ -160,10 +154,10 @@ const AccountPage: React.FC = () => {
                 title="Выйти из аккаунта?"
                 message="Вы уверены, что хотите выйти?"
                 confirmText="Выйти"
-                confirmColor="var(--color-accent)"
+                confirmBgColor="var(--color-accent)"
             />
         </Container>
     );
-}
+};
 
 export default AccountPage;
