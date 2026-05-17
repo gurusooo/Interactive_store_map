@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
-import { useStore } from "../../stores/useStore";
-import { FaSearch, FaTimes } from "react-icons/fa";
-import styles from "./SearchWithSuggestions.module.css";
-import { Product } from "../../types/types";
-import { SearchProductModal } from "./SearchProductModal";
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { useStore } from '../../stores/useStore';
+import { FaSearch, FaTimes } from 'react-icons/fa';
+import styles from './SearchWithSuggestions.module.css';
+import { Product } from '../../types/types';
+import { SearchProductModal } from './SearchProductModal';
 
 export function SearchWithSuggestions() {
     const searchQuery = useStore((s) => s.searchQuery);
@@ -16,21 +16,17 @@ export function SearchWithSuggestions() {
     const suggestions = useMemo(() => {
         if (!searchQuery) return [];
         return products
-            .filter(product =>
-                product.name.toLowerCase().includes(searchQuery.toLowerCase())
-            )
+            .filter((product) => product.name.toLowerCase().includes(searchQuery.toLowerCase()))
             .slice(0, 4);
     }, [searchQuery, products]);
 
-    const handleInputChange =
-        (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchQuery(value);
         setShowSuggestions(value.length > 0);
     };
 
     const handleSuggestionClick = (product: Product) => {
-        setSearchQuery(product.name);
         setShowSuggestions(false);
         setSelectedProduct(product);
     };
@@ -43,7 +39,9 @@ export function SearchWithSuggestions() {
 
     const handleCloseModal = () => {
         setSelectedProduct(null);
-        setSearchQuery("");
+        if (searchQuery.length > 0) {
+            setShowSuggestions(true);
+        }
     };
 
     const handleInputKeyDown = (e: React.KeyboardEvent) => {
@@ -53,7 +51,7 @@ export function SearchWithSuggestions() {
     };
 
     const handleClearSearch = () => {
-        setSearchQuery("");
+        setSearchQuery('');
         setShowSuggestions(false);
     };
 
@@ -64,8 +62,8 @@ export function SearchWithSuggestions() {
             }
         };
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     return (
@@ -99,7 +97,9 @@ export function SearchWithSuggestions() {
                         {suggestions.length > 0 ? (
                             <>
                                 <div className={styles.resultsCount}>
-                                    {suggestions.length === 1 ? 'Найден' : 'Найдено'} {suggestions.length} {suggestions.length === 1 ? 'товар' : 'товара'}
+                                    {suggestions.length === 1 ? 'Найден' : 'Найдено'}{' '}
+                                    {suggestions.length}{' '}
+                                    {suggestions.length === 1 ? 'товар' : 'товара'}
                                 </div>
                                 {suggestions.map((product) => (
                                     <div
@@ -112,15 +112,22 @@ export function SearchWithSuggestions() {
                                             alt={product.name}
                                             className={styles.suggestionImage}
                                             onError={(e) => {
-                                                (e.target as HTMLImageElement).src = "/src/assets/placeholder.png";
+                                                (e.target as HTMLImageElement).src =
+                                                    '/src/assets/placeholder.png';
                                             }}
                                         />
                                         <div className={styles.suggestionInfo}>
-                                            <div className={styles.suggestionName}>{product.name}</div>
+                                            <div className={styles.suggestionName}>
+                                                {product.name}
+                                            </div>
                                             <div className={styles.suggestionDetails}>
-                                                <span className={styles.suggestionPrice}>{product.price} ₽</span>
+                                                <span className={styles.suggestionPrice}>
+                                                    {product.price} ₽
+                                                </span>
                                                 {product.weight && (
-                                                    <span className={styles.suggestionWeight}>{product.weight} кг</span>
+                                                    <span className={styles.suggestionWeight}>
+                                                        {product.weight} кг
+                                                    </span>
                                                 )}
                                             </div>
                                         </div>
@@ -136,10 +143,7 @@ export function SearchWithSuggestions() {
                 )}
             </div>
 
-            <SearchProductModal
-                product={selectedProduct}
-                onClose={handleCloseModal}
-            />
+            <SearchProductModal product={selectedProduct} onClose={handleCloseModal} />
         </>
     );
 }

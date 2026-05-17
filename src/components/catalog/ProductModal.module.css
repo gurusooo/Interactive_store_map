@@ -1,49 +1,49 @@
 .modalContent {
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    max-height: 90vh;
     display: flex;
     flex-direction: column;
     background: white;
     animation: fadeIn 0.3s ease-out;
+    max-height: 90dvh;
 }
 
 .modalHeader {
-    background: var(--color-primary);
-    color: white;
+    background: white;
     padding: 16px 20px;
-    font-weight: 600;
-    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .backButton {
-    /*background: rgba(255, 255, 255, 0.2);*/
     border: none;
     width: 36px;
     height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--color-base-600);
+    background: transparent;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
-.backButton:hover {
-    background: rgba(255, 255, 255, 0.35);
-    transform: scale(1.1);
+.backButton:active {
+    background-color: var(--color-base-200);
 }
 
 .modalBody {
-    padding: 20px;
+    padding: 12px 12px 160px 12px;
     flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .productImage {
@@ -51,48 +51,52 @@
     max-height: 300px;
     object-fit: contain;
     background: white;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
-.productImage:hover {
-    transform: scale(1.02);
+.productTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-base-800);
+    text-align: left;
+    padding: 4px 0 0 0;
+    border-bottom: 2px solid var(--color-secondary);
+    margin-bottom: 4px;
+    word-break: break-word;
 }
 
 .priceSection {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+    padding: 0;
+    margin-top: 0;
+    background: white;
     border-radius: 8px;
 }
 
 .price {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-primary);
 }
 
 .weight {
     font-size: 16px;
-    color: var(--color-base-700);
+    color: var(--color-base-600);
 }
 
 .expirySection {
-    padding: 12px 16px;
-    background: #fff5f0;
-    border-left: 4px solid var(--color-accent);
+    padding: 8px 0;
+    background: white;
     font-size: 14px;
-    font-weight: 500;
-    color: var(--color-base-800);
+    font-weight: 400;
+    color: var(--color-base-700);
     border-radius: 8px;
 }
 
 .description {
-    padding: 12px 16px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+    padding: 8px 0;
     font-size: 14px;
     line-height: 1.5;
     color: var(--color-base-700);
@@ -101,8 +105,8 @@
 
 .mapSection {
     padding: 12px;
-    border: 1px solid #ddd;
-    background: #f9f9f9;
+    border: 1px solid var(--color-base-200);
+    background: var(--color-base-200);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -110,34 +114,26 @@
 }
 
 .mapTitle {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
-    color: var(--color-base-800);
+    color: var(--color-base-700);
 }
 
 .mapContainer {
     width: 100%;
     height: 680px;
-    border: 1px solid #bbb;
-    background: #eaeaea;
+    border: 1px solid var(--color-base-200);
+    background: var(--color-base-200);
     border-radius: 4px;
-
 }
 
 .shelfInfo {
-    background: #fff3e0;
+    background: #c7d3da;
     padding: 8px 12px;
     font-size: 14px;
     font-weight: 500;
+    text-align: left;
     color: var(--color-base-800);
-    border-left: 4px solid var(--color-accent);
+    border-left: 4px solid var(--color-secondary);
     border-radius: 4px;
-}
-
-.mapLegend {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    font-size: 14px;
-    color: var(--color-base-700);
 }

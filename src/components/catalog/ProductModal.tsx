@@ -1,23 +1,11 @@
-import {
-    Image,
-    Text,
-    Box,
-    VStack,
-    HStack,
-    Button,
-} from "@chakra-ui/react";
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-} from "@chakra-ui/modal";
-import { Product } from "../../types/types";
-import { StoreMap } from "../common/StoreMap";
-import styles from "./ProductModal.module.css";
-import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import { Image, Text, Box, VStack, HStack, Button } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody } from '@chakra-ui/modal';
+import { Product } from '../../types/types';
+import { StoreMap } from '../common/StoreMap';
+import styles from './ProductModal.module.css';
+import { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { AddToListButton } from '../common/AddToListButton';
 
 interface ProductModalProps {
     product: Product | null;
@@ -33,34 +21,32 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
         setImageError(true);
     };
 
-    const getImageUrl = (url: string) =>
-        imageError ? "/src/assets/placeholder.png" : url;
+    const getImageUrl = (url: string) => (imageError ? '/src/assets/placeholder.png' : url);
 
     const getShelfText = (shelf: number): string => {
         switch (shelf) {
-            case 1: return 'верхней';
-            case 2: return 'второй сверху';
-            case 3: return 'второй снизу';
-            case 4: return 'нижней';
-            default: return `${shelf}-й`;
+            case 1:
+                return 'верхней';
+            case 2:
+                return 'второй сверху';
+            case 3:
+                return 'второй снизу';
+            case 4:
+                return 'нижней';
+            default:
+                return `${shelf}-й`;
         }
     };
 
     return (
-        <Modal isOpen={!!product} onClose={onClose} size="lg" scrollBehavior="inside">
-            <ModalOverlay bg="blackAlpha.600" />
-            <ModalContent className={styles.modalContent}>
-
+        <Modal isOpen={!!product} onClose={onClose} size="full" scrollBehavior="outside">
+            <ModalOverlay />
+            <ModalContent className={styles.modalContent} m={0} maxH="100dvh">
                 <ModalHeader className={styles.modalHeader}>
                     <HStack justify="space-between" width="100%">
-                        <Button
-                            className={styles.backButton}
-                            onClick={onClose}
-                            variant="plain"
-                        >
+                        <Button className={styles.backButton} onClick={onClose} variant="plain">
                             <FaArrowLeft />
                         </Button>
-                        <Text flex="1" textAlign="center">{product.name}</Text>
                         <Box width="36px" />
                     </HStack>
                 </ModalHeader>
@@ -76,10 +62,14 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                             onError={handleImageError}
                         />
 
+                        <Text className={styles.productTitle}>{product.name}</Text>
+
                         <Box className={styles.priceSection}>
                             <HStack justify="space-between">
                                 <Text className={styles.price}>{product.price} ₽</Text>
-                                {product.weight && <Text className={styles.weight}>{product.weight} кг</Text>}
+                                {product.weight && (
+                                    <Text className={styles.weight}>{product.weight} кг</Text>
+                                )}
                             </HStack>
                         </Box>
 
@@ -106,6 +96,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                         </Box>
                     </VStack>
                 </ModalBody>
+                <AddToListButton productId={product.id} />
             </ModalContent>
         </Modal>
     );
