@@ -1,36 +1,24 @@
 export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-  weight: number;
-  date?: number;
-  location: { x: number; y: number };
-  shelf: number;
-}
-export interface Department {
-  id: string;
-  name: string;
-  coordinates: { x: number; y: number; width: number; height: number };
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    description: string;
+    image: string;
+    weight: number;
+    date?: number;
+    location: { x: number; y: number };
+    shelf: number;
 }
 
-export interface StoreState {
-  products: Product[];
-  departments: Department[];
-  searchQuery: string;
-  routeProducts: Product[];
-  selectedDepartment: string | null;
-}
-
-export interface CashRegister { //for further growth of the project, this interface is not in use yet
-  id: string;
-  name: string;
-  type: 'cash' | 'electronic';
-  location: {
-    x: number;
-    y: number;
-  };
-  status?: 'open' | 'closed' | 'busy';
+export interface CashRegister {
+    //for further growth of the project, this interface is not in use yet
+    id: string;
+    name: string;
+    type: 'cash' | 'electronic';
+    location: {
+        x: number;
+        y: number;
+    };
+    status?: 'open' | 'closed' | 'busy';
 }
