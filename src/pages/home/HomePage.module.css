@@ -3,144 +3,300 @@
     display: flex;
     flex-direction: column;
     background-color: var(--color-base-100);
-    color: var(--color-base-800);
+    color: var(--color-base-700);
 }
 
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem var(--page-padding);
-    background: var(--color-base-000);
-    border-bottom: 1px solid var(--color-base-200);
-    position: sticky;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px var(--page-padding);
+    background: var(--color-base-100);
     top: 0;
-    z-index: 100;
 }
 
 .logo {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--color-primary);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--color-base-700);
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Jost', sans-serif;
+    text-align: left;
 }
 
 .mapButton {
-    background: var(--color-primary);
+    background: var(--color-secondary);
     color: var(--color-base-000);
     border: none;
-    padding: 0.75rem 1.5rem;
+    padding: 12px 8px;
     border-radius: 8px;
-    font-size: 0.875rem;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: 'Inter', sans-serif;
-}
-
-.mapButton:hover {
-    background: var(--color-base-800);
-    transform: translateY(-1px);
+    font-family: 'Jost', sans-serif;
 }
 
 .mapButton:active {
-    transform: translateY(0);
+    background: #40524e;
 }
 
 .main {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem var(--page-padding);
-    max-width: 1200px;
+    padding: 16px 16px 88px 16px;
+    max-width: 800px;
     margin: 0 auto;
     width: 100%;
-    gap: 3rem;
 }
 
-.textBlock {
-    flex: 1;
-    max-width: 600px;
+.welcomeSection {
+    margin-bottom: 16px;
 }
 
 .greeting {
-    font-size: 2.25rem;
-    color: var(--color-base-900);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-    font-weight: 700;
-}
-
-.subtext {
-    font-size: 1.25rem;
-    color: var(--color-base-600);
-    margin-bottom: 2rem;
+    font-size: 22px;
+    color: var(--color-base-700);
+    margin-bottom: 24px;
     font-weight: 500;
 }
 
-.guideList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.guideList li {
-    padding: 0.75rem 0;
-    padding-left: 2rem;
-    position: relative;
-    font-size: 1rem;
+.subtext {
+    font-size: 20px;
     color: var(--color-base-700);
-    line-height: 1.6;
+    font-weight: 500;
 }
 
-.guideList li::before {
-    position: absolute;
-    left: 0;
-    color: var(--color-primary);
-    font-weight: bold;
-    font-size: 1.1rem;
+.shoppingListSection {
+    position: relative;
+    min-height: 400px;
 }
 
-.imageBlock {
-    flex: 1;
+.emptyState {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    padding: 48px 16px;
+    text-align: center;
+}
+
+.emptyImage {
+    max-width: 200px;
+    height: auto;
+    opacity: 0.7;
+    margin-bottom: 24px;
+}
+
+.emptyText {
+    font-size: 16px;
+    color: var(--color-base-500);
+    margin-bottom: 24px;
+}
+
+.addFirstButton {
+    background: var(--color-primary);
+    color: var(--color-base-000);
+    border: none;
+    padding: 16px 20px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.addFirstButton:active {
+    background: #a9462c;
+    transform: scale(0.98);
+}
+
+.cartList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 80px;
+}
+
+.itemBottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--color-base-000);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid var(--color-base-200);
+}
+
+.itemContent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.itemImageWrapper {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background: var(--color-base-100);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: imageFadeIn 0.3s ease;
+}
+
+.itemInfo {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.itemName {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-base-900);
+    margin: 0;
+    line-height: 1.3;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.itemDetails {
+    display: flex;
+    gap: 12px;
     align-items: center;
 }
 
-.cartImg {
-    max-width: 100%;
-    height: auto;
-    max-height: 400px;
-
-}
-
-.footer {
-    background: var(--color-base-600);
-    color: var(--color-base-000);
-    padding: 2rem var(--page-padding);
-    margin-top: auto;
-}
-
-.contacts {
-    margin-bottom: 1rem;
-}
-
-.contacts p {
-    margin: 0.5rem 0;
-    font-size: 0.875rem;
-}
-
-.contacts strong {
+.itemPrice {
+    font-size: 16px;
     color: var(--color-primary);
+    font-weight: 600;
 }
 
-.copy {
-    margin: 0;
-    font-size: 0.8rem;
-    color: var(--color-base-200);
+.itemControls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.quantityControls {
+    height: 48px;
+    border: solid var(--color-base-200);
+    border-radius: 24px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: expand 0.2s ease;
+}
+
+.qtyButton {
+    width: 36px;
+    height: 36px;
+    border: none;
+    color: var(--color-base-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition:
+        transform 0.15s ease,
+        background 0.2s ease;
+}
+
+.qtyButton:active:not(:disabled) {
+    transform: scale(0.98);
+
+}
+
+.qtyButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantity {
+    min-width: 24px;
+    text-align: center;
+    color: var(--color-base-700);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.deleteButton {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-base-400);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteButton:active:not(:disabled) {
+    color: var(--color-accent);
+}
+
+.deleteButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.floatingAddButton {
+    position: fixed;
+    bottom: 83px;
+    right: 16px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.2s ease;
+    z-index: 900;
+    box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.08);
+}
+
+.floatingAddButton:active {
+    background: #a9462c;
 }
 
 .modalOverlay {
@@ -160,7 +316,7 @@
 .modalContent {
     background: var(--color-base-000);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 32px;
     position: relative;
     max-width: 800px;
     width: 100%;
@@ -171,10 +327,10 @@
 
 .closeButton {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 4px;
+    right: 4px;
     border: none;
-    font-size: 1.25rem;
+    font-size: 20px;
     cursor: pointer;
     color: var(--color-base-600);
     width: 32px;
@@ -184,84 +340,92 @@
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    z-index: 1001;
+    background: transparent;
+    padding: 4px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
-.closeButton:hover {
-    color: var(--color-base-800);
-    transform: scale(1.2);
+.closeButton:active {
+    background-color: var(--color-base-200);
+
 }
 
-@keyframes modalAppear {
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .main {
-        flex-direction: column;
-        padding: 2rem var(--page-padding);
-        gap: 2rem;
+        padding: 24px var(--page-padding);
     }
 
-    .header {
-        padding: 1rem var(--page-padding);
+    .cartItem {
+        gap: 16px;
+        padding: 12px;
     }
 
-    .logo {
-        font-size: 1.5rem;
+    .itemImageWrapper {
+        width: 60px;
+        height: 60px;
     }
 
-    .greeting {
-        font-size: 1.75rem;
-        text-align: center;
+    .itemName {
+        font-size: 16px;
     }
 
-    .subtext {
-        font-size: 1.125rem;
-        text-align: center;
+    .qtyButton {
+        width: 32px;
+        height: 32px;
     }
 
-    .textBlock,
-    .imageBlock {
-        max-width: 100%;
+    .quantity {
+        min-width: 45px;
+        font-size: 14px;
     }
 
-    .modalContent {
-        padding: 1.5rem;
+    .deleteButton {
+        width: 36px;
+        height: 36px;
     }
 
-    .footer {
-        padding: 1.5rem var(--page-padding);
+    .floatingAddButton {
+        bottom: 83px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.08);
     }
 }
 
-@media (max-width: 480px) {
-    .greeting {
-        font-size: 1.5rem;
+@media (min-width: 1024px) {
+    .floatingAddButton {
+        bottom: 100px;
+        right: calc((100% - 800px) / 2 + 20px);
     }
+}
 
-    .subtext {
-        font-size: 1rem;
-    }
+.listHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
 
-    .guideList li {
-        font-size: 0.9rem;
-        padding-left: 1.5rem;
-    }
+.listHeader .subtext {
+    margin-bottom: 0;
+}
 
-    .mapButton {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-    }
+.startRouteButton {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
 
-    .modalContent {
-        padding: 1rem;
-    }
+.startRouteButton:active {
+    background: #a9462c;
+    transform: scale(0.98);
 }
