@@ -8,7 +8,6 @@
     border-top: 1px solid var(--color-base-200);
     padding: 8px 0 12px 0;
     z-index: 1000;
-    box-shadow: 0 -1px 4px rgba(212,212,212,0.5);
     width: 100vw;
 }
 .navItem {
@@ -29,8 +28,6 @@
 
 .navItemActive {
     color: var(--color-primary);
-    /*border-radius: 8px;
-    margin: 0 2px;*/
 }
 
 .navItemActive .navIcon {

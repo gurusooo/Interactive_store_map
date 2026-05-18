@@ -48,7 +48,9 @@ export const useAuthStore = create<AuthStore>()(
                     authSubscription.unsubscribe();
                 }
 
-                const { data: { session } } = await supabase.auth.getSession();
+                const {
+                    data: { session },
+                } = await supabase.auth.getSession();
 
                 if (session) {
                     set({
@@ -63,7 +65,9 @@ export const useAuthStore = create<AuthStore>()(
                     set({ isLoading: false });
                 }
 
-                const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+                const {
+                    data: { subscription },
+                } = supabase.auth.onAuthStateChange((_event, session) => {
                     if (session) {
                         set({
                             user: {
@@ -114,7 +118,9 @@ export const useAuthStore = create<AuthStore>()(
                     });
                 } else {
                     set({ isLoading: false });
-                    throw new Error('Проблема с созданием пользователя. Проверьте настройки Supabase.');
+                    throw new Error(
+                        'Проблема с созданием пользователя. Проверьте настройки Supabase.'
+                    );
                 }
             },
 
