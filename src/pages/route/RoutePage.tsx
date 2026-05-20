@@ -8,6 +8,7 @@ import { useShoppingList } from '../../hooks/useShoppingList';
 import { useStore } from '../../stores/useStore';
 import { Product } from '../../types/types';
 import { calculateOptimalRoute } from '../../utils/navigationUtils';
+import { ConfirmModal } from '../../components/common/ConfirmModal'
 
 interface Department {
     id: string;
@@ -47,6 +48,8 @@ const departments: Department[] = [
     { id: 'dept-ice-cream', name: 'Мороженое', x: 422, y: 389, width: 80, height: 61 },
     { id: 'dept-beauty', name: 'Красота', x: 310, y: 309, width: 192, height: 30 },
     { id: 'dept-meat', name: 'Мясо, птица, рыба, колбасы', x: 0, y: 30, width: 30, height: 414 },
+    { id: 'dept-cash', name: 'Кассы', x: 572, y: 480, width: 120, height: 30 },
+    { id: 'dept-el-cash', name: 'Электронные кассы', x: 449, y: 480, width: 120, height: 30 },
 ];
 
 export function RoutePage() {
@@ -67,6 +70,8 @@ export function RoutePage() {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
     const cartKeysSerialized = Array.from(cartItems.keys()).join(',');
+
+    const [showExitModal, setShowExitModal] = useState(false);
 
     useEffect(() => {
         if (isNavigating && products.length > 0) {
@@ -122,12 +127,18 @@ export function RoutePage() {
         const screenX = rect.left + transform.offsetX + deptCenterX * scale;
         const screenY = rect.top + transform.offsetY + deptCenterY * scale;
 
-        return {
-            left: screenX - 100,
-            top: screenY - 70,
-        };
-    };
+        const popupWidth = 240;
+        const popupHeight = 100;
+        const screenPadding = 16;
 
+        let left = screenX - popupWidth / 2;
+        let top = screenY - popupHeight;
+
+        left = Math.max(screenPadding, Math.min(left, window.innerWidth - popupWidth - screenPadding));
+        top = Math.max(screenPadding, Math.min(top, window.innerHeight - popupHeight - screenPadding));
+
+        return { left, top };
+    };
     const popupPosition = getPopupPosition();
 
     return (
@@ -216,6 +227,20 @@ export function RoutePage() {
                     </div>
                 )}
             </div>
+
+            <ConfirmModal
+                isOpen={showExitModal}
+                onClose={() => setShowExitModal(false)}
+                onConfirm={() => {
+                    setShowExitModal(false);
+                    navigate('/');
+                }}
+                title="Прервать покупки?"
+                message="Вы уверены, что хотите выйти из режима шоппинга? Текущий прогресс построения маршрута будет сброшен."
+                confirmText="Выйти"
+                cancelText="Отмена"
+                confirmBgColor="var(--color-accent)"
+            />
 
             {!isNavigating &&
                 selectedDept &&

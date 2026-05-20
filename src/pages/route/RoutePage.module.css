@@ -1,215 +1,232 @@
+.routePage {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 .page {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: var(--color-base-100);
-  overflow: hidden;
-}
-
-.mapContainer {
-  position: relative;
-  flex: 1;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  background: white;
-  overflow: hidden;
-  margin: 0;
-  min-height: 0;
-}
-
-.map {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  border-radius: 0;
-}
-
-.clickOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 572px;
-  height: 680px;
-  pointer-events: none;
-}
-
-.deptClickArea {
-  position: absolute;
-  cursor: pointer;
-  background: rgba(255, 0, 0, 0);
-  transition: background-color 0.2s ease;
-  pointer-events: auto;
-  border-radius: 2px;
-}
-
-.popup {
-  position: fixed;
-  z-index: 9999;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--color-base-300);
-  padding: 12px 14px;
-  width: 180px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  animation: fadeIn 0.2s ease;
-}
-
-.popup::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid #fff;
-}
-
-.popup.top::after {
-  bottom: auto;
-  top: -8px;
-  border-top: none;
-  border-bottom: 8px solid #fff;
-}
-
-.deptName {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  line-height: 1.3;
-  word-wrap: break-word;
-  text-align: center;
-}
-
-.goBtn {
-  background: var(--color-primary, #e31e24);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-weight: 500;
-}
-
-.goBtn:hover {
-  background: #c41a1f;
-}
-
-.close {
-  position: absolute;
-  top: 4px;
-  right: 8px;
-  border: none;
-  background: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: var(--color-base-500);
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-}
-
-.close:hover {
-  color: var(--color-base-800);
-  background: var(--color-base-200);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.zoomControls {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 50;
-}
-
-.zoomControls button {
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  border: none;
-  background: var(--color-primary);
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
-}
-
-.zoomControls button:hover {
-  background: #d3322f;
-  transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-  .zoomControls button {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-  }
-}
-
-.h1 {
-  font-size: 26px;
-  font-weight: 500;
-  color: var(--color-base-700);
-  margin: 0;
-  font-family: 'Jost', sans-serif;
-  text-align: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    width: 100vw;
+    background: var(--color-base-100);
+    overflow: hidden;
+    overscroll-behavior: none;
 }
 
 .header {
-  padding: 24px 16px 24px;
-  background: var(--color-base-100);
-  flex-shrink: 0;
-  border-bottom: 1px solid var(--color-base-200);
+    padding: 24px 16px;
+    background: var(--color-base-100);
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--color-base-200);
+    z-index: 1000;
+}
+
+.h1 {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--color-base-700);
+    margin: 0;
+    font-family: 'Jost', sans-serif;
+    text-align: left;
 }
 
 .content {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+.mapContainer {
+    position: relative;
+    flex: 1;
+    background: white;
+    overflow: hidden;
+    min-height: 0;
 }
 
-:global(html),
-:global(body) {
-  overflow: hidden !important;
-  position: fixed !important;
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
+.map {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
-:global(#root) {
-  height: 100vh;
-  overflow: hidden;
+.clickOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 572px;
+    height: 680px;
+    pointer-events: none;
 }
+
+.deptClickArea {
+    position: absolute;
+    cursor: pointer;
+    background: rgba(255, 0, 0, 0);
+    pointer-events: auto;
+    z-index: 250;
+}
+
+.zoomControls {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 50;
+}
+
+.zoomControls button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    border: none;
+    background: var(--color-secondary);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.zoomControls button:hover {
+    background: var(--color-secondary);
+    transform: scale(1.05);
+}
+
+.popup {
+    position: fixed;
+    background: white;
+    padding: 16px 16px 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+    max-width: 240px;
+    border: 1px solid var(--color-base-200);
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+.deptName {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-base-800);
+    line-height: 1.3;
+    padding: 0 24px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.goBtn {
+    background: var(--color-primary);
+    color: var(--color-base-000);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--color-base-500);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.close:hover {
+    color: var(--color-base-800);
+    background: var(--color-base-200);
+}
+
+.navigationPanel {
+    background: var(--color-base-100);
+    padding: 16px 16px 83px 16px;
+    border-top: 1px solid var(--color-base-200);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+}
+
+.navButtonMain {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--color-primary);
+    color: var(--color-base-000);
+    font-weight: 500;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.activeNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.nextItemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.nextItemLabel {
+    font-size: 14px;
+    color: var(--color-base-500);
+    font-weight: 500;
+}
+
+.nextItemName {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-base-700);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navButtonAction {
+    flex-shrink: 0;
+    padding: 16px 12px;
+    border-radius: 8px;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
