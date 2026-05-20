@@ -28,10 +28,10 @@ export default defineConfig({
                     }
                 ],
                 "start_url": "/",
-                "background_color": "#f08c1f",
+                "background_color": "#f5f5f5",
                 "display": "standalone",
                 "scope": "/",
-                "theme_color": "#f08c1f",
+                "theme_color": "#f5f5f5",
                 "orientation": "portrait-primary"
             },
             workbox: {

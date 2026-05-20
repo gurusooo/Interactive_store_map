@@ -44,7 +44,7 @@ const BottomNavigation: React.FC = () => {
 
     const handleNavigation = (item: NavItem) => {
         if (location.pathname !== item.path) {
-            vibrate(10); // Теперь vibrate определён
+            vibrate(10);
             navigate(item.path);
         }
     };
