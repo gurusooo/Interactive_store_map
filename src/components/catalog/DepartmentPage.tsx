@@ -49,6 +49,10 @@ export function DepartmentPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [departmentId]);
+
+    useEffect(() => {
         if (!departmentId) return;
 
         setLoading(true);
