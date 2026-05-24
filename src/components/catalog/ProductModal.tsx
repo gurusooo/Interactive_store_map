@@ -21,7 +21,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
         setImageError(true);
     };
 
-    const getImageUrl = (url: string) => (imageError ? '/src/assets/placeholder.png' : url);
+    const getImageUrl = (url: string) => (imageError ? '/src/assets/placeholder.svg' : url);
 
     const getShelfText = (shelf: number): string => {
         switch (shelf) {

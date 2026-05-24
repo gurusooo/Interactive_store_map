@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useStore } from '../../stores/useStore';
 import { useShoppingList } from '../../hooks/useShoppingList';
-import { FaSearch, FaTimes, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaPlus, FaMinus } from 'react-icons/fa';
 import styles from './AddProductOverlay.module.css';
 import { Product } from '../../types/types';
 
@@ -111,9 +111,7 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
     };
 
     const handleInputFocus = () => {
-        if (searchQuery && !selectedProduct) {
-            setShowSuggestions(true);
-        } else if (searchQuery && selectedProduct) {
+        if (searchQuery) {
             setShowSuggestions(true);
         }
     };
@@ -123,8 +121,9 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
         setSearchQuery(value);
         setShowSuggestions(true);
 
-        if (value === '' && selectedProduct) {
+        if (selectedProduct && value !== selectedProduct.name) {
             setSelectedProduct(null);
+            setQuantity(1);
         }
     };
 
@@ -145,20 +144,21 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
 
                 <div className={styles.searchSection} ref={searchRef}>
                     <div className={styles.inputWrapper}>
-                        <FaSearch className={styles.searchIcon} />
                         <input
                             ref={inputRef}
                             type="text"
-                            className={styles.searchInput}
+                            className={styles.input}
                             placeholder="Поиск товаров..."
                             value={searchQuery}
                             onChange={handleSearchChange}
                             onFocus={handleInputFocus}
                         />
-                        {searchQuery && (
-                            <button className={styles.clearBtn} onClick={handleClearSearch}>
-                                <FaTimes />
+                        {searchQuery ? (
+                            <button className={styles.clearButton} onClick={handleClearSearch}>
+                                <FaTimes className={styles.clearIcon} />
                             </button>
+                        ) : (
+                            <FaSearch className={styles.searchIcon} />
                         )}
                     </div>
 
@@ -177,7 +177,7 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
                                             className={styles.suggestionImage}
                                             onError={(e) => {
                                                 (e.target as HTMLImageElement).src =
-                                                    '/src/assets/placeholder.png';
+                                                    '/src/assets/placeholder.svg';
                                             }}
                                         />
                                         <div className={styles.suggestionInfo}>
@@ -208,7 +208,7 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
                                 className={styles.selectedImage}
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src =
-                                        '/src/assets/placeholder.png';
+                                        '/src/assets/placeholder.svg';
                                 }}
                             />
                             <div className={styles.selectedInfo}>
@@ -238,14 +238,14 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
                                     onClick={() => handleQuantityChange(-1)}
                                     disabled={quantity <= 1}
                                 >
-                                    -
+                                    <FaMinus />
                                 </button>
                                 <span className={styles.quantity}>{quantity} шт</span>
                                 <button
                                     className={styles.qtyButton}
                                     onClick={() => handleQuantityChange(1)}
                                 >
-                                    +
+                                    <FaPlus />
                                 </button>
                             </div>
                         </div>
@@ -260,8 +260,8 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
                                 {isAdding
                                     ? 'Добавление...'
                                     : isProductInCart
-                                      ? `Добавить еще ${quantity} шт`
-                                      : 'Добавить в список'}
+                                        ? `Добавить еще ${quantity} шт`
+                                        : 'Добавить в список'}
                             </span>
                         </button>
                     </div>

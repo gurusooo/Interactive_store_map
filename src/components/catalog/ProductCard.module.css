@@ -113,7 +113,7 @@
 }
 
 .price {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
     color: var(--color-primary);
 }
@@ -122,7 +122,6 @@
     font-size: 13px;
     color: var(--color-base-500);
     margin-bottom: 8px;
-    font-weight: 400;
     line-height: 1.2;
 }
 

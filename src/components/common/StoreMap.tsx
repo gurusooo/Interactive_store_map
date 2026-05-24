@@ -421,17 +421,16 @@ export const StoreMap: React.FC<StoreMapProps> = ({
                         return (
                             <g key={item.id} transform={`translate(${item.location?.x || 0}, ${item.location?.y || 0})`}>
                                 <circle
-                                    r={isCurrent ? "16" : "8"}
+                                    r={isCurrent ? "16" : "10"}
                                     fill={isCurrent ? "var(--color-primary)" : "var(--color-base-300)"}
                                     stroke="white"
                                     strokeWidth="2"
                                 />
                                 <text
-                                    y={isCurrent ? "6" : "4"}
+                                    y={isCurrent ? "6" : "5"}
                                     textAnchor="middle"
                                     fill="white"
-                                    fontSize={isCurrent ? "12" : "6"}
-                                    fontWeight="bold"
+                                    fontWeight="500"
                                 >
                                     {idx + 1}
                                 </text>

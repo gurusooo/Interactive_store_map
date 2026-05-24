@@ -113,7 +113,7 @@ export function SearchWithSuggestions() {
                                             className={styles.suggestionImage}
                                             onError={(e) => {
                                                 (e.target as HTMLImageElement).src =
-                                                    '/src/assets/placeholder.png';
+                                                    '/src/assets/placeholder.svg';
                                             }}
                                         />
                                         <div className={styles.suggestionInfo}>

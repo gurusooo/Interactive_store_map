@@ -84,7 +84,7 @@
 }
 
 .qtyButton:active {
-    transform: scale(0.9);
+    transform: scale(0.98);
 }
 
 .qtyButton:disabled {
@@ -95,7 +95,7 @@
     min-width: 58px;
     text-align: center;
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
 }
 
