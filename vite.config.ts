@@ -15,20 +15,20 @@ export default defineConfig({
                 "description": "Собирай корзину быстрее!",
                 "icons": [
                     {
-                        "src": "icons/icon-192x192.png",
+                        "src": "icons/cart-icon.png",
                         "sizes": "192x192",
                         "type": "image/png",
-                        "purpose": "any maskable"
+                        "purpose": "any"
                     },
                     {
-                        "src": "icons/icon-512x512.png",
+                        "src": "icons/cart-icon-512-nolinear.png",
                         "sizes": "512x512",
                         "type": "image/png",
-                        "purpose": "any maskable"
+                        "purpose": "any"
                     }
                 ],
                 "start_url": "/",
-                "background_color": "#f5f5f5",
+                "background_color": "#f08c1f",
                 "display": "standalone",
                 "scope": "/",
                 "theme_color": "#f5f5f5",
