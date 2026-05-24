@@ -62,7 +62,7 @@ export function RoutePage() {
     const [scale, setScale] = useState(1);
     const [transform, setTransform] = useState({ offsetX: 0, offsetY: 0 });
 
-    const { cartItems } = useShoppingList();
+    const { cartItems, getQuantity } = useShoppingList();
     const { products } = useStore();
     const [routeSteps, setRouteSteps] = useState<Product[]>([]);
     const [routePoints, setRoutePoints] = useState<{ x: number; y: number }[]>([]);
@@ -70,7 +70,6 @@ export function RoutePage() {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
     const cartKeysSerialized = Array.from(cartItems.keys()).join(',');
-
     const [showExitModal, setShowExitModal] = useState(false);
 
     useEffect(() => {
@@ -85,6 +84,60 @@ export function RoutePage() {
             setRoutePoints(fullPathCoordinates);
         }
     }, [isNavigating, cartKeysSerialized, products]);
+
+    useEffect(() => {
+        if (!isShoppingStarted || !('Notification' in window) || Notification.permission !== 'granted') return;
+
+        const sendRouteNotification = async (title: string, body: string) => {
+            try {
+                const registration = await navigator.serviceWorker.ready;
+
+                const options: any = {
+                    body,
+                    icon: '/icons/cart-icon.png',
+                    badge: '/icons/cart-line.svg',
+                    tag: 'shopping-route',
+                    renotify: true,
+                    silent: true
+                };
+
+                await registration.showNotification(title, options);
+            } catch (error) {
+                console.error('Ошибка отправки уведомления:', error);
+            }
+        };
+
+        if (currentStepIndex < routeSteps.length) {
+            const nextItem = routeSteps[currentStepIndex];
+            if (nextItem) {
+                sendRouteNotification(
+                    'Следующий товар',
+                    `${nextItem.name} — ${getQuantity(nextItem.id)} шт.`
+                ).catch(console.error);
+            }
+        } else if (currentStepIndex === routeSteps.length && routeSteps.length > 0) {
+            sendRouteNotification(
+                'Корзина собрана!',
+                'Маршрут завершен. Пройдите к кассам для оплаты покупок.'
+            ).catch(console.error);
+        }
+    }, [currentStepIndex, isShoppingStarted, routeSteps, getQuantity]);
+
+    useEffect(() => {
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission().then((permission) => {
+                console.log('Статус разрешения на уведомления:', permission);
+            }).catch(err => console.error('Ошибка при запросе прав:', err));
+        }
+    }, []);
+
+    const handleBackClick = () => {
+        if (isNavigating) {
+            setShowExitModal(true);
+        } else {
+            navigate(-1);
+        }
+    };
 
     const handleTransformChange = useCallback((t: { offsetX: number; offsetY: number }) => {
         setTransform((prev) => {
@@ -144,6 +197,12 @@ export function RoutePage() {
     return (
         <div className={styles.page}>
             <div className={styles.header}>
+                <button className={styles.backButton} onClick={handleBackClick} aria-label="Назад">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
                 <Heading as="h1" size="lg" className={styles.h1}>
                     {isNavigating ? 'Шоппинг' : 'Маршрут'}
                 </Heading>
@@ -157,7 +216,7 @@ export function RoutePage() {
                     </div>
 
                     <StoreMap
-                        location={{ x: 486, y: 644 }}
+                        location={{ x: 500, y: 620 }}
                         className={styles.map}
                         scale={scale}
                         onTransformChange={handleTransformChange}
@@ -203,10 +262,21 @@ export function RoutePage() {
                             </button>
                         ) : currentStepIndex < routeSteps.length ? (
                             <div className={styles.activeNav}>
+                                {routeSteps[currentStepIndex]?.image && (
+                                    <img
+                                        src={routeSteps[currentStepIndex].image}
+                                        alt={routeSteps[currentStepIndex].name}
+                                        className={styles.productImage}
+                                    />
+                                )}
+
                                 <div className={styles.nextItemInfo}>
                                     <span className={styles.nextItemLabel}>Следующий товар:</span>
                                     <span className={styles.nextItemName}>
                                         {routeSteps[currentStepIndex].name}
+                                    </span>
+                                    <span className={styles.productQuantity}>
+                                        Количество: <strong>{getQuantity(routeSteps[currentStepIndex].id)} шт.</strong>
                                     </span>
                                 </div>
                                 <button className={styles.navButtonAction} onClick={handleNextStep}>

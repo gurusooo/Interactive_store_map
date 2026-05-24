@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './HomePage.module.css';
-import happyCart from '../../assets/cart-happy.png';
-import placeholderImage from '../../assets/placeholder.png';
+import placeholderImage from '../../assets/placeholder.svg';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import maplibregl from 'maplibre-gl';
 import { useAuthStore } from '../../stores/authStore';
@@ -197,8 +196,8 @@ export function HomePage() {
                     ) : cartItemsWithDetails.length === 0 ? (
                         <div className={styles.emptyState}>
                             <img
-                                src={happyCart}
-                                alt="Пустая корзина"
+                                src="/icons/cart-happy.png"
+                                alt="Happy Cart"
                                 className={styles.emptyImage}
                             />
 

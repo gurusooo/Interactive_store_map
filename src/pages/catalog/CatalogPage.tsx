@@ -11,6 +11,10 @@ export default function CatalogPage() {
     const loading = useStore((s) => s.loading);
     const error = useStore((s) => s.error);
 
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [SearchHeader]);
+
     useEffect(() => {
         loadProducts();
         setSearchQuery('');
