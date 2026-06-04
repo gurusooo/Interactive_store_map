@@ -21,7 +21,7 @@
     border: none;
     cursor: pointer;
     padding: 8px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,11 +29,12 @@
         background-color 0.2s ease,
         transform 0.1s ease;
     color: var(--color-base-700);
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);*/
 }
 
 .backButton:active {
     background-color: var(--color-base-200);
+    /*border-radius: 50%;*/
 }
 
 .departmentTitle {

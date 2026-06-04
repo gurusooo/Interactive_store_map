@@ -192,7 +192,7 @@ export function AddProductOverlay({ isOpen, onClose, onProductAdded }: AddProduc
                                 ))
                             ) : (
                                 <div className={styles.noResults}>
-                                    Ничего не найдено для "{searchQuery}"
+                                    По запросу "{searchQuery}" ничего не найдено :(
                                 </div>
                             )}
                         </div>
